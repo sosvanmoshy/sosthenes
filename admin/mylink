@@ -1,0 +1,180 @@
+<?php
+
+//database informations
+	$dbhost = "localhost";
+	$dbusername = "root";
+	$dbpassword = "";
+	$dbname = "e-dalali";
+
+	$connection = mysqli_connect($dbhost,$dbusername,$dbpassword,$dbname) or 
+				die("database connection failed".mysqli_error());
+
+
+	//sum
+	//sql syntax
+
+	$sql = 	"SELECT sum(AMOUNT) as sum from transactions";
+	$query = mysqli_query($connection,$sql);
+						
+	while ($row = mysqli_fetch_assoc($query)) {
+	$output = $row['sum'];
+	}
+
+
+
+  ?>
+
+
+
+<!DOCTYPE html>
+<html>
+<head> 
+	<title></title>
+
+	<link rel="stylesheet" type="text/css" href="ui.css">
+
+</head>
+<body bgcolor="green">
+
+	<nav class="nav2">
+		
+		<div>
+			<table border="0">
+				<tr>
+					<td><br>
+							<div class="profile"><center><img src="sos.jpg" class="dp"></center></div>
+						</td>
+					<td width="61%"><center>WELCOME TO BLABLABLA ADMIN PANEL</center></td>
+					<td width="2%"></td>
+					<td><div class="amount">
+						<br>
+						<?php  
+
+							echo "BALANCE"."<br><br>".$output;
+						?>
+					</div></td>
+					<td><form action="logout.php" method="POST" ><input type="submit" name="submit" value="LOG OUT"></button></form></td>
+				</tr>
+			</table>
+		</div>
+			
+		
+	</nav>
+	<table border="1">
+		<tr>
+			<td class="td1">
+					<form>
+						
+						<table height="400px">
+							<tr>
+								<td class="tdTEXTS">
+									<?php 
+
+									$image = "HOME.png";
+
+									echo '<a href="rooms.php"><img src="'.$image.'" class="a"></a>';
+
+									 ?>
+								</td>
+							</tr>
+
+							<tr>
+								<td class="tdTEXTS">
+									<?php 
+
+									$image = "admin.png";
+
+									echo '<a href="admins.php"><img src="'.$image.'" class="a"></a>';
+
+									 ?>
+								</td>
+							</tr>
+
+							<tr>
+								<td class="tdTEXTS">
+									<?php 
+
+									$image = "members.png";
+
+									echo '<a href="vendors.php"><img src="'.$image.'" class="a"></a>';
+
+									 ?>
+								</td>
+							</tr>
+
+							<tr>
+								<td class="tdTEXTS">
+									<?php 
+
+									$image = "payments.png";
+
+									echo '<a href="vendors.php"><img src="'.$image.'" class="a"></a>';
+
+									 ?>
+								</td>
+							</tr>
+
+							<tr>
+								<td class="tdTEXTS">
+									<?php 
+
+									$image = "order.jpg";
+
+									echo '<a href="vendors.php"><img src="'.$image.'" class="a"></a>';
+
+									 ?>
+								</td>
+							</tr>
+						</table>
+
+
+					</form>
+
+
+
+			</td>
+			<td class="td2">
+				
+				<div>
+					<table border="0">
+
+						<tr>
+							<td colspan="6"><h1 class="h1">ROOMS</h1></td>
+						</tr>
+
+						<th>ROOM ID</th>
+						<th>PRICING</th>
+						<th>STATUS</th>
+
+						<tr>
+							<?php
+
+							//sql query
+
+							$sql = "SELECT *from room;";
+
+							$result = mysqli_query($connection,$sql);
+
+							$display = mysqli_num_rows($result);
+
+							//display data on the rows now
+
+							if ($display > 0) {
+								while ($rows = mysqli_fetch_assoc($result)) {
+									echo "<tr><td>".$rows['room_id']."</td><td>".$rows['room_price']."</td><td>".$rows['room_status']."</td></tr>";
+								}
+							}
+
+						    ?>
+						</tr>
+
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+
+
+</body>
+</html>
